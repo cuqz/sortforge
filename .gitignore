@@ -1,0 +1,37 @@
+# Dependencies
+frontend/node_modules/
+
+# Build output
+frontend/dist/
+
+# Go binary
+backend/array-sorter.exe
+backend/array-sorter
+
+# SQLite databases
+*.db
+
+# Archives
+*.zip
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Test artifacts
+frontend/test-results/
+frontend/test.mjs
+frontend/playwright-report/

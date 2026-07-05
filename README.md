@@ -11,7 +11,7 @@ Picks a set of sorting algorithms, generates an array, runs them in parallel via
 **Prerequisites**: Node.js 18+, Go 1.23+, npm
 
 ```bash
-git clone https://github.com/Yxot/sortforge.git
+git clone https://github.com/cuqz/sortforge.git
 cd sortforge
 ```
 

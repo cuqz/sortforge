@@ -85,8 +85,7 @@ self.onmessage = (e: MessageEvent<WorkerMessage>) => {
   const endMemory = (performance as unknown as { memory?: { usedJSHeapSize: number } }).memory?.usedJSHeapSize || 0;
 
   const algorithmMeta = algorithmId === 'custom' ? null : getAlgorithmMeta(algorithmId);
-  const isStable = algorithmMeta?.stable ?? guessStability(result.sorted);
-  // memory: use JS heap diff if available, else estimate from step data + working copies
+  const isStable = algorithmMeta?.stable ?? false;
   const memEstimate = (result.sorted.length * 8 * 2) + (result.steps.length * result.sorted.length * 8);
   const memoryBytes = Math.max(endMemory - startMemory, 0) || memEstimate;
 
@@ -109,9 +108,4 @@ function getAlgorithmMeta(id: string): { stable: boolean } | null {
   return stableSet.has(id) ? { stable: true } : { stable: false };
 }
 
-function guessStability(sorted: number[]): boolean {
-  for (let i = 0; i < sorted.length - 1; i++) {
-    if (sorted[i] > sorted[i + 1]) return false;
-  }
-  return true;
-}
+

@@ -8,21 +8,21 @@ import (
 )
 
 var Algorithms = []models.AlgorithmInfo{
-	{ID: "bubble", Name: "Bubble Sort", Category: "comparison", TimeComplexity: "O(n\u00b2)", Stable: true, Description: "Repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order."},
-	{ID: "selection", Name: "Selection Sort", Category: "comparison", TimeComplexity: "O(n\u00b2)", Stable: false, Description: "Divides the input into a sorted and unsorted region, repeatedly selects the smallest element from the unsorted region."},
-	{ID: "insertion", Name: "Insertion Sort", Category: "comparison", TimeComplexity: "O(n\u00b2)", Stable: true, Description: "Builds the final sorted array one element at a time by repeatedly inserting the next element into the correct position."},
-	{ID: "shell", Name: "Shell Sort", Category: "comparison", TimeComplexity: "O(n log\u00b2 n)", Stable: false, Description: "An in-place comparison sort that sorts far apart elements first, then reduces the gap between elements."},
-	{ID: "quick", Name: "Quick Sort", Category: "comparison", TimeComplexity: "O(n log n)", Stable: false, Description: "Picks a pivot element and partitions the array around it, then recursively sorts the partitions."},
-	{ID: "merge", Name: "Merge Sort", Category: "comparison", TimeComplexity: "O(n log n)", Stable: true, Description: "Divides the array into halves, recursively sorts each half, then merges them back together."},
-	{ID: "heap", Name: "Heap Sort", Category: "comparison", TimeComplexity: "O(n log n)", Stable: false, Description: "Builds a max-heap from the data, then repeatedly extracts the maximum element and rebuilds the heap."},
-	{ID: "tim", Name: "Tim Sort", Category: "comparison", TimeComplexity: "O(n log n)", Stable: true, Description: "A hybrid stable sorting algorithm derived from merge sort and insertion sort, used in Python and Java."},
-	{ID: "cocktail", Name: "Cocktail Shaker Sort", Category: "comparison", TimeComplexity: "O(n\u00b2)", Stable: true, Description: "A bidirectional bubble sort that passes through the array in both directions."},
-	{ID: "comb", Name: "Comb Sort", Category: "comparison", TimeComplexity: "O(n\u00b2)", Stable: false, Description: "Improves on bubble sort by using a gap larger than 1 and shrinking it by a factor of 1.3 each pass."},
-	{ID: "gnome", Name: "Gnome Sort", Category: "comparison", TimeComplexity: "O(n\u00b2)", Stable: true, Description: "Works by moving an element to its correct position through a series of swaps, similar to insertion sort."},
-	{ID: "counting", Name: "Counting Sort", Category: "linear", TimeComplexity: "O(n+k)", Stable: true, Description: "Counts the occurrences of each element and uses that to determine the positions of elements in the sorted array."},
-	{ID: "radix", Name: "Radix Sort", Category: "linear", TimeComplexity: "O(nk)", Stable: true, Description: "Sorts numbers by processing individual digits from least significant to most significant."},
-	{ID: "bucket", Name: "Bucket Sort", Category: "linear", TimeComplexity: "O(n + k)", Stable: true, Description: "Distributes elements into buckets, sorts each bucket individually, then concatenates them."},
-	{ID: "bogo", Name: "Bogo Sort", Category: "comparison", TimeComplexity: "O((n+1)!)", Stable: false, Description: "Randomly permutes the array until it is sorted. Included for humor and demonstration."},
+	{ID: "bubble", Name: "Bubble Sort", Category: "comparison", TimeComplexity: "O(n\u00b2)", Stable: true, Description: "Classic adjacent-swap sort. Slow but every CS student writes it once."},
+	{ID: "selection", Name: "Selection Sort", Category: "comparison", TimeComplexity: "O(n\u00b2)", Stable: false, Description: "Picks the smallest element each pass. Worst of both worlds on comparisons and swaps."},
+	{ID: "insertion", Name: "Insertion Sort", Category: "comparison", TimeComplexity: "O(n\u00b2)", Stable: true, Description: "Good for small or nearly-sorted arrays. Builds the sorted array one element at a time."},
+	{ID: "shell", Name: "Shell Sort", Category: "comparison", TimeComplexity: "O(n log\u00b2 n)", Stable: false, Description: "Insertion sort with a decreasing gap. First O(n log n) sort to be discovered."},
+	{ID: "quick", Name: "Quick Sort", Category: "comparison", TimeComplexity: "O(n log n)", Stable: false, Description: "Pivot, partition, recurse. Fast in practice unless data is already sorted with a bad pivot."},
+	{ID: "merge", Name: "Merge Sort", Category: "comparison", TimeComplexity: "O(n log n)", Stable: true, Description: "Divide-and-conquer. Splits to single elements, merges back up in sorted order."},
+	{ID: "heap", Name: "Heap Sort", Category: "comparison", TimeComplexity: "O(n log n)", Stable: false, Description: "Builds a heap, pops the max repeatedly. Consistent O(n log n) but not stable."},
+	{ID: "tim", Name: "Tim Sort", Category: "comparison", TimeComplexity: "O(n log n)", Stable: true, Description: "Hybrid of merge and insertion sort. Powers Python's sort and V8's Array.sort()."},
+	{ID: "cocktail", Name: "Cocktail Shaker Sort", Category: "comparison", TimeComplexity: "O(n\u00b2)", Stable: true, Description: "Bubble sort but bidirectional. Shakes left-to-right then right-to-left each pass."},
+	{ID: "comb", Name: "Comb Sort", Category: "comparison", TimeComplexity: "O(n\u00b2)", Stable: false, Description: "Bubble sort with a shrinking gap. Shrink factor of 1.3 is empirically best."},
+	{ID: "gnome", Name: "Gnome Sort", Category: "comparison", TimeComplexity: "O(n\u00b2)", Stable: true, Description: "Like insertion sort if it were drunk. Swaps backward until in position."},
+	{ID: "counting", Name: "Counting Sort", Category: "linear", TimeComplexity: "O(n+k)", Stable: true, Description: "Integer-only. Counts occurrences and reconstructs. Falls back to native sort if range too large."},
+	{ID: "radix", Name: "Radix Sort", Category: "linear", TimeComplexity: "O(nk)", Stable: true, Description: "Sorts digit-by-digit from LSD to MSD. Counting sort as a subroutine."},
+	{ID: "bucket", Name: "Bucket Sort", Category: "linear", TimeComplexity: "O(n + k)", Stable: true, Description: "Distributes into buckets, sorts each bucket, concatenates. Good for uniform distributions."},
+	{ID: "bogo", Name: "Bogo Sort", Category: "comparison", TimeComplexity: "O((n+1)!)", Stable: false, Description: "Shuffles randomly until sorted. Included because it is funny. Gives up after 1000 tries."},
 }
 
 func AlgorithmsHandler(w http.ResponseWriter, r *http.Request) {

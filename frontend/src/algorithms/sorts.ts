@@ -9,9 +9,8 @@ export function bubbleSort(arr: number[]): SortFnReturn {
   const steps: number[][] = [[...result]];
   let comparisons = 0;
   let swaps = 0;
-  const n = result.length;
-  for (let i = 0; i < n - 1; i++) {
-    for (let j = 0; j < n - 1 - i; j++) {
+  for (let i = 0; i < result.length - 1; i++) {
+    for (let j = 0; j < result.length - 1 - i; j++) {
       comparisons++;
       if (result[j] > result[j + 1]) {
         [result[j], result[j + 1]] = [result[j + 1], result[j]];
@@ -23,19 +22,17 @@ export function bubbleSort(arr: number[]): SortFnReturn {
   return { sorted: result, steps, comparisons, swaps };
 }
 
+// selection sort is the worst of both worlds but it's simple
 export function selectionSort(arr: number[]): SortFnReturn {
   const result = [...arr];
   const steps: number[][] = [[...result]];
   let comparisons = 0;
   let swaps = 0;
-  const n = result.length;
-  for (let i = 0; i < n - 1; i++) {
+  for (let i = 0; i < result.length - 1; i++) {
     let minIdx = i;
-    for (let j = i + 1; j < n; j++) {
+    for (let j = i + 1; j < result.length; j++) {
       comparisons++;
-      if (result[j] < result[minIdx]) {
-        minIdx = j;
-      }
+      if (result[j] < result[minIdx]) minIdx = j;
     }
     if (minIdx !== i) {
       [result[i], result[minIdx]] = [result[minIdx], result[i]];
@@ -106,6 +103,7 @@ export function shellSort(arr: number[]): SortFnReturn {
   return { sorted: result, steps, comparisons, swaps };
 }
 
+// TODO: come back and make the pivot selection smarter
 export function quickSort(arr: number[]): SortFnReturn {
   const result = [...arr];
   const steps: number[][] = [[...result]];
@@ -152,26 +150,18 @@ export function mergeSort(arr: number[]): SortFnReturn {
     const leftArr = result.slice(left, mid + 1);
     const rightArr = result.slice(mid + 1, right + 1);
     let i = 0, j = 0, k = left;
-    while (i < leftArr.length && j < rightArr.length) {
+    for (; i < leftArr.length && j < rightArr.length; k++) {
       comparisons++;
       if (leftArr[i] <= rightArr[j]) {
-        result[k] = leftArr[i];
-        i++;
+        result[k] = leftArr[i]; i++;
       } else {
-        result[k] = rightArr[j];
-        j++;
+        result[k] = rightArr[j]; j++;
       }
       swaps++;
-      k++;
     }
-    while (i < leftArr.length) {
-      result[k] = leftArr[i];
-      i++; k++; swaps++;
-    }
-    while (j < rightArr.length) {
-      result[k] = rightArr[j];
-      j++; k++; swaps++;
-    }
+    // drain remaining
+    for (; i < leftArr.length; i++, k++) { result[k] = leftArr[i]; swaps++; }
+    for (; j < rightArr.length; j++, k++) { result[k] = rightArr[j]; swaps++; }
     recordStep(steps, result);
   }
 
@@ -299,7 +289,6 @@ export function timSort(arr: number[]): SortFnReturn {
 
 export function cocktailShakerSort(arr: number[]): SortFnReturn {
   const result = [...arr];
-  const steps: number[][] = [[...result]];
   let comparisons = 0;
   let swaps = 0;
   let start = 0;
@@ -362,6 +351,7 @@ export function combSort(arr: number[]): SortFnReturn {
   return { sorted: result, steps, comparisons, swaps };
 }
 
+// like insertion sort but drunk
 export function gnomeSort(arr: number[]): SortFnReturn {
   const result = [...arr];
   const steps: number[][] = [[...result]];
@@ -393,14 +383,13 @@ export function countingSort(arr: number[]): SortFnReturn {
   const steps: number[][] = [[...result]];
   let comparisons = 0;
   let swaps = 0;
-  const n = result.length;
-  if (n === 0) return { sorted: result, steps, comparisons, swaps };
+  if (result.length === 0) return { sorted: result, steps, comparisons, swaps };
 
   const min = Math.min(...result);
   const max = Math.max(...result);
-  const range = max - min + 1;
 
-  if (range > 100000) {
+  // falls back to native sort if range is huge
+  if (max - min + 1 > 100000) {
     const sortedArr = result.sort((a, b) => a - b);
     return { sorted: sortedArr, steps: [sortedArr], comparisons, swaps };
   }
@@ -527,15 +516,14 @@ export function bucketSort(arr: number[]): SortFnReturn {
   return { sorted: result, steps, comparisons, swaps };
 }
 
+// this is a joke algorithm dont take it seriously
 export function bogoSort(arr: number[]): SortFnReturn {
   const result = [...arr];
   const steps: number[][] = [[...result]];
   let comparisons = 0;
   let swaps = 0;
-  const maxAttempts = 1000;
-  let attempts = 0;
 
-  function isSorted(): boolean {
+  function sorted(): boolean {
     for (let i = 0; i < result.length - 1; i++) {
       comparisons++;
       if (result[i] > result[i + 1]) return false;
@@ -543,7 +531,8 @@ export function bogoSort(arr: number[]): SortFnReturn {
     return true;
   }
 
-  function shuffle(): void {
+  // fisher-yates shuffle
+  for (let attempts = 0; attempts < 1000 && !sorted(); attempts++) {
     for (let i = result.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [result[i], result[j]] = [result[j], result[i]];
@@ -552,12 +541,8 @@ export function bogoSort(arr: number[]): SortFnReturn {
     recordStep(steps, result);
   }
 
-  while (attempts < maxAttempts && !isSorted()) {
-    shuffle();
-    attempts++;
-  }
-
-  if (!isSorted()) {
+  // give up and cheat
+  if (!sorted()) {
     result.sort((a, b) => a - b);
     recordStep(steps, result);
   }

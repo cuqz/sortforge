@@ -7,7 +7,7 @@ export const algorithms: AlgorithmInfo[] = [
     category: 'comparison',
     timeComplexity: 'O(n²)',
     stable: true,
-    description: 'Repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order.',
+    description: 'The classic. Adjacent swaps until sorted. Slow but you learn it once.',
   },
   {
     id: 'selection',
@@ -15,7 +15,7 @@ export const algorithms: AlgorithmInfo[] = [
     category: 'comparison',
     timeComplexity: 'O(n²)',
     stable: false,
-    description: 'Divides the input into a sorted and unsorted region, repeatedly selecting the smallest element from the unsorted region.',
+    description: 'Finds the smallest element and puts it at the front. Repeatedly. Does not care about existing order.',
   },
   {
     id: 'insertion',
@@ -23,7 +23,7 @@ export const algorithms: AlgorithmInfo[] = [
     category: 'comparison',
     timeComplexity: 'O(n²)',
     stable: true,
-    description: 'Builds the final sorted array one element at a time by repeatedly inserting an element into the sorted portion.',
+    description: 'Good for small or nearly-sorted arrays. Picks one element, inserts it where it belongs.',
   },
   {
     id: 'shell',
@@ -31,7 +31,7 @@ export const algorithms: AlgorithmInfo[] = [
     category: 'comparison',
     timeComplexity: 'O(n log² n)',
     stable: false,
-    description: 'Generalization of insertion sort that allows exchange of far-apart elements using gap sequences.',
+    description: 'Insertion sort but smarter — swaps far-apart elements first using a decreasing gap.',
   },
   {
     id: 'quick',
@@ -39,7 +39,7 @@ export const algorithms: AlgorithmInfo[] = [
     category: 'comparison',
     timeComplexity: 'O(n log n)',
     stable: false,
-    description: 'Picks a pivot element and partitions the array around it, then recursively sorts the partitions.',
+    description: 'Pick a pivot, partition around it, recurse. Fast in practice, terrible for already-sorted data with bad pivot choice.',
   },
   {
     id: 'merge',
@@ -47,7 +47,7 @@ export const algorithms: AlgorithmInfo[] = [
     category: 'comparison',
     timeComplexity: 'O(n log n)',
     stable: true,
-    description: 'Divides the array into halves, recursively sorts them, then merges the sorted halves.',
+    description: 'Divide and conquer. Splits the array in half until single elements, then merges back up in sorted order.',
   },
   {
     id: 'heap',
@@ -55,7 +55,7 @@ export const algorithms: AlgorithmInfo[] = [
     category: 'comparison',
     timeComplexity: 'O(n log n)',
     stable: false,
-    description: 'Builds a max-heap from the array, then repeatedly extracts the maximum element.',
+    description: 'Builds a max-heap, then repeatedly pulls the largest element off the top.',
   },
   {
     id: 'tim',
@@ -63,7 +63,7 @@ export const algorithms: AlgorithmInfo[] = [
     category: 'comparison',
     timeComplexity: 'O(n log n)',
     stable: true,
-    description: 'Hybrid sorting algorithm derived from merge sort and insertion sort, designed for real-world data.',
+    description: 'Python and JS use this. Merge sort + insertion sort hybrid optimized for real-world partially-sorted data.',
   },
   {
     id: 'cocktail',
@@ -71,7 +71,7 @@ export const algorithms: AlgorithmInfo[] = [
     category: 'comparison',
     timeComplexity: 'O(n²)',
     stable: true,
-    description: 'Bidirectional bubble sort that passes through the list in both directions alternately.',
+    description: 'Bubble sort but bidirectional. Goes left-to-right then right-to-left each pass.',
   },
   {
     id: 'comb',
@@ -79,7 +79,7 @@ export const algorithms: AlgorithmInfo[] = [
     category: 'comparison',
     timeComplexity: 'O(n²)',
     stable: false,
-    description: 'Improves on bubble sort by using a gap sequence that shrinks by a factor of 1.3.',
+    description: 'Bubble sort with a shrinking gap. The 1.3 shrink factor is empirically the best.',
   },
   {
     id: 'gnome',
@@ -87,7 +87,7 @@ export const algorithms: AlgorithmInfo[] = [
     category: 'comparison',
     timeComplexity: 'O(n²)',
     stable: true,
-    description: 'Similar to insertion sort but moves elements by swapping a gnome-like cursor forward and backward.',
+    description: 'Like insertion sort but swaps backward instead of shifting. Also called stupid sort.',
   },
   {
     id: 'counting',
@@ -95,7 +95,7 @@ export const algorithms: AlgorithmInfo[] = [
     category: 'linear',
     timeComplexity: 'O(n + k)',
     stable: true,
-    description: 'Non-comparison sort that counts occurrences of each integer value and uses that to place elements.',
+    description: 'Counts how many times each value appears, then reconstructs. Only works for integers with limited range.',
   },
   {
     id: 'radix',
@@ -103,7 +103,7 @@ export const algorithms: AlgorithmInfo[] = [
     category: 'linear',
     timeComplexity: 'O(nk)',
     stable: true,
-    description: 'Non-comparison sort that processes digits individually, sorting by the least significant digit first.',
+    description: 'Sorts digit-by-digit from least significant to most. Uses counting sort as a subroutine.',
   },
   {
     id: 'bucket',
@@ -111,7 +111,7 @@ export const algorithms: AlgorithmInfo[] = [
     category: 'linear',
     timeComplexity: 'O(n + k)',
     stable: true,
-    description: 'Distributes elements into buckets and sorts each bucket individually using insertion sort.',
+    description: 'Distributes elements into buckets, sorts each bucket (usually with insertion sort), concatenates.',
   },
   {
     id: 'bogo',
@@ -119,6 +119,6 @@ export const algorithms: AlgorithmInfo[] = [
     category: 'comparison',
     timeComplexity: 'O((n+1)!)',
     stable: false,
-    description: 'Randomly shuffles the array until it is sorted. Capped at 1000 attempts for practicality.',
+    description: 'Randomly shuffles until sorted. Included because it is funny. Falls back to native sort after 1000 attempts.',
   },
 ];
